@@ -1,0 +1,1 @@
+## Golang notes from https://tour.golang.org
