@@ -1,1 +1,1 @@
-## Golang notes from https://tour.golang.org
+## Golang notes from https://tour.golang.org and other sources
