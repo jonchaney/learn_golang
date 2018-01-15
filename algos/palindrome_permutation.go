@@ -16,15 +16,11 @@ func main() {
 	} else {
 		fmt.Println("false")
 	}
-
 }
 
-// create a hash counter - letters as keys and number it appears as values
-// if more than one letter appears an odd number of times, no palindrome exists
+// create hash table and track number of odd appearancess
 // O(n)
 func palindromePermutation(str string) bool {
-	// create hash table and track number of odd appearances
-	// O(n)
 	odd := 0
 	letters := make(map[string]int)
 	for _, char := range str {
@@ -38,6 +34,5 @@ func palindromePermutation(str string) bool {
 			odd--
 		}
 	}
-
 	return odd <= 1
 }
