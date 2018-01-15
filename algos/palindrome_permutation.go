@@ -23,26 +23,21 @@ func main() {
 // if more than one letter appears an odd number of times, no palindrome exists
 // O(n)
 func palindromePermutation(str string) bool {
-	// create hash table
+	// create hash table and track number of odd appearances
 	// O(n)
+	odd := 0
 	letters := make(map[string]int)
-	for _, r := range str {
-		if string(r) == " " {
+	for _, char := range str {
+		if string(char) == " " {
 			continue
 		}
-		letters[strings.ToLower(string(r))]++
-	}
-	// check if there is more than one letter that appears an odd
-	// number of times
-	// O(m) -- length of hash counter
-	odd := 0
-	for _, r := range str {
-		if letters[strings.ToLower(string(r))]%2 != 0 {
+		letters[strings.ToLower(string(char))]++
+		if letters[strings.ToLower(string(char))]%2 == 1 {
 			odd++
-		}
-		if odd > 1 {
-			return false
+		} else {
+			odd--
 		}
 	}
-	return true
+
+	return odd <= 1
 }
