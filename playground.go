@@ -14,6 +14,9 @@ func main() {
 	deferStatement()
 	pointers()
 	structs()
+	arrays()
+	slices()
+	hashTable()
 }
 
 // declare its return value and parameter type
@@ -128,4 +131,60 @@ func structs() {
 	v := Vertex{1, 2}
 	v.X = 4
 	fmt.Println(v.X)
+	v = Vertex{X: 2} // Y is initialized to zero
+	fmt.Println(v)
+	// struct pointers work how you would expect
+	vertex := Vertex{3, 4}
+	p := &vertex
+	fmt.Println(p.X)
+}
+
+func arrays() {
+	// similar to C++, a size must be declared
+	var a [3]string
+	for i := 0; i < len(a); i++ {
+		a[i] = "Jon"
+		fmt.Printf("%v", a[i])
+	}
+
+	// declare and initialize values
+	b := [3]int{1, 2, 3}
+
+	for i := 0; i < len(b); i++ {
+		fmt.Println(b[i])
+	}
+
+}
+
+// a dynamically sized, flexible view into the elements on an array
+func slices() {
+	// declare and initialze an array
+	a := [5]int{1, 2, 3, 4, 5}
+	fmt.Println(a)
+	// create a slice of the array a
+	slice := a[1:4]
+	fmt.Println(slice)
+	// a slice does not store any data, it just describes a section of the underlying array
+	// changing the elements of a slice modifies the underlying array
+	slice[0] = 9
+	fmt.Println(a)
+
+	// array literal
+	literal := [3]bool{false, false, false}
+	// slice literal -- this creates the same as above and then builds a slice that references it
+	sliceLiteral := []bool{false, false, false}
+	fmt.Println(literal, sliceLiteral)
+}
+
+func hashTable() {
+	hash := []struct {
+		i int
+		b bool
+	}{
+		{1, true},
+		{2, false},
+	}
+
+	fmt.Println(hash)
+
 }
