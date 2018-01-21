@@ -160,20 +160,39 @@ func arrays() {
 func slices() {
 	// declare and initialze an array
 	a := [5]int{1, 2, 3, 4, 5}
-	fmt.Println(a)
+	fmt.Println("array", a)
 	// create a slice of the array a
 	slice := a[1:4]
-	fmt.Println(slice)
+	fmt.Println("slice", slice)
 	// a slice does not store any data, it just describes a section of the underlying array
 	// changing the elements of a slice modifies the underlying array
 	slice[0] = 9
-	fmt.Println(a)
+	fmt.Println("modified array", a)
+
+	// a slice has both a length and a capacity
+	// length is the length of the slice
+	fmt.Println("length of slice", len(slice))
+	// capacity is the length of the underlying array
+	fmt.Println("capcity of slice", cap(slice))
 
 	// array literal
 	literal := [3]bool{false, false, false}
 	// slice literal -- this creates the same as above and then builds a slice that references it
 	sliceLiteral := []bool{false, false, false}
 	fmt.Println(literal, sliceLiteral)
+
+	// the zero value of a slice is nil
+	var nilSlice []int
+	if nilSlice == nil {
+		fmt.Println("nil! slice")
+	}
+
+	// you can craete slice swith the make function
+	// this is how you make dynamically size arrays
+	s := make([]int, 5)        // length=5 cap=5
+	s2 := make([]string, 0, 5) // length=0 cap=5
+	fmt.Println(s)
+	fmt.Println(s2)
 }
 
 func hashTable() {
