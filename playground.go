@@ -17,6 +17,7 @@ func main() {
 	arrays()
 	slices()
 	hashTable()
+	ranges()
 }
 
 // declare its return value and parameter type
@@ -187,12 +188,27 @@ func slices() {
 		fmt.Println("nil! slice")
 	}
 
-	// you can craete slice swith the make function
+	// you can craete slices with the make function
 	// this is how you make dynamically size arrays
 	s := make([]int, 5)        // length=5 cap=5
 	s2 := make([]string, 0, 5) // length=0 cap=5
 	fmt.Println(s)
 	fmt.Println(s2)
+
+	// append to a slice
+	s = []int{2, 3, 4}
+	fmt.Println(s)
+	s = append(s, 4)
+	fmt.Println(s)
+
+	// pointers to an array
+	// unlike C, an array is NOT a pointer to the first
+	// element in the array, an array variable denotes the ENTIRE array
+	// you can make a pointer to the array, but that would be a pointer, not the array
+	fmt.Println("POINTER TO ARRAY")
+	array := []int{1, 2, 3}
+	var ptr = &array
+	fmt.Println(*ptr) // you cannot index into it
 }
 
 func hashTable() {
@@ -205,5 +221,22 @@ func hashTable() {
 	}
 
 	fmt.Println(hash)
+}
 
+func ranges() {
+	name := []string{"jon", "chaney"}
+	// if an index is not used, put an underscore in its place
+	for _, n := range name {
+		fmt.Println(n)
+	}
+	// if you only want the index, drop the value entirely!
+	for i := range name {
+		fmt.Println(name[i])
+	}
+
+	pow := make([]int, 10)
+	for i := range pow {
+		pow[i] = 1 << uint(i) // == 2**i
+	}
+	fmt.Println(pow)
 }
