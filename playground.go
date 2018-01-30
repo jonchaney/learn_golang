@@ -158,10 +158,15 @@ func arrays() {
 }
 
 // a dynamically sized, flexible view into the elements on an array
+// slices are a data structure built on top of an array
+// "a slice is a descriptor of an array segement. It consists of a pointer to the array,
+// the length of the segment (the slice), and its capacity (the underlying array)"
 func slices() {
 	// declare and initialze an array
 	a := [5]int{1, 2, 3, 4, 5}
 	fmt.Println("array", a)
+	b := [...]int{1, 2} // have the compiler count the length for you with ...
+	fmt.Println("array", b)
 	// create a slice of the array a
 	slice := a[1:4]
 	fmt.Println("slice", slice)
@@ -209,6 +214,32 @@ func slices() {
 	array := []int{1, 2, 3}
 	var ptr = &array
 	fmt.Println(*ptr) // you cannot index into it
+
+	// appending elements to a slice
+	x := [3]string{"Лайка", "Белка", "Стрелка"}
+	y := x[:] // y now references the array x, it is not a copy, it is a new slice that points to the original array
+	fmt.Println(x)
+	fmt.Println(y)
+	y[0] = "Bill"
+	y = append(y, "Test") // append
+	fmt.Println(x)
+	fmt.Println(y)
+
+	d := []string{"John", "Paul"}
+	e := []string{"George", "Ringo", "Pete"}
+	d = append(d, e...) // equivalent to "append(a, b[0], b[1], b[2])"
+	fmt.Println(d)
+	// a == []string{"John", "Paul", "George", "Ringo", "Pete"}
+
+	// a slice cannot be grown beyond its capacity, it will cause a runtime panic
+	// to make a slice bigger, use the following code
+	// append does this automatically
+	w := []string{"Лайка", "Белка", "Стрелка"}
+	t := make([]string, len(w), (cap(w)+1)*2)
+	copy(t, w) // this copies all the elements in w to the new larger slice t
+	w = t
+	fmt.Println(cap(w))
+
 }
 
 func hashTable() {
