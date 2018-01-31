@@ -18,6 +18,9 @@ func main() {
 	slices()
 	hashTable()
 	ranges()
+	maps()
+	functionValues()
+	closures()
 }
 
 // declare its return value and parameter type
@@ -270,4 +273,76 @@ func ranges() {
 		pow[i] = 1 << uint(i) // == 2**i
 	}
 	fmt.Println(pow)
+}
+
+func maps() {
+	// a map maps keys to values
+	// the zero value of a map is nil
+	// the make function returns a map of the given type, initialized and ready for use
+	m := make(map[string]bool)
+	m["Jonathan"] = true
+	if m["Jonathan"] {
+		fmt.Println("jonathan was here")
+	}
+
+	// map literal
+	var literal = map[string]string{
+		"Jon":   "Chaney",
+		"Tamar": "Ariel",
+	}
+
+	var vertexLiteral = map[string]Vertex{
+		"App Academy": {2, 3}, // you don't need to put the type here --> Vertex{2,3}
+	}
+
+	fmt.Println(literal)
+	fmt.Println(vertexLiteral)
+	// delete an element
+	delete(literal, "Jon")
+	fmt.Println(literal)
+	// test if key is in m with two value assignment
+	elem, ok := literal["Jon"]
+	// if the key is not in the map, then elem is the zero value for the map's element type -- string's zero value is an empty string
+	if !ok {
+		fmt.Println("jon is not there!")
+	} else {
+		fmt.Printf("%v is there\n", elem)
+	}
+}
+
+type Square struct {
+	length float64
+	width  float64
+}
+
+// functions are values too and can be passed around just like other values
+func functionValues() {
+	area := func(length, width float64) float64 {
+		return length * width
+	}
+
+	square := Square{4, 5}
+
+	fmt.Println(area(square.width, square.length))
+	fmt.Println(calculateArea(square, area))
+}
+
+func calculateArea(s Square, cb func(length float64, width float64) float64) float64 {
+	return cb(s.width, s.length)
+}
+
+// just like javascript, go functions can be closures
+// adder function taken straight from golang tour
+func adder() func(int) int {
+	sum := 0
+	return func(x int) int {
+		sum += x
+		return sum
+	}
+}
+
+func closures() {
+	fn := adder()
+	fmt.Println(fn(1))
+	fmt.Println(adder()(2))
 }
