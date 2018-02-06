@@ -21,6 +21,7 @@ func main() {
 	maps()
 	functionValues()
 	closures()
+	methods()
 }
 
 // declare its return value and parameter type
@@ -345,4 +346,35 @@ func closures() {
 	fn := adder()
 	fmt.Println(fn(1))
 	fmt.Println(adder()(2))
+}
+
+// Employee is an employee
+type Employee struct {
+	name string
+	id   int
+}
+
+func (e Employee) info() {
+	fmt.Printf("name: %v\nID: %v\n", e.name, e.id)
+}
+
+// MyFloat declare methods on types
+type MyFloat float64
+
+func methods() {
+	emp := Employee{"Jonathan Chaney", 1548898}
+	emp.info()
+	var a MyFloat
+	a = -5
+	fmt.Println(a.Abs())
+}
+
+// Abs exported method must have comment
+// you cannot define methods with a reciever whose type
+// is defined in another package
+func (f MyFloat) Abs() float64 {
+	if f < 0 {
+		return float64(-f)
+	}
+	return float64(f)
 }
