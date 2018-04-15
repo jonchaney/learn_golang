@@ -29,4 +29,4 @@ func (f MyFloat) Abs() float64 {
 	return float64(f)
 }
 
-// methods with pointer recievers can modify the value to which the reciever point
+// methods with pointer recievers can modify the value to which the reciever points
